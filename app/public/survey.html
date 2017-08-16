@@ -173,7 +173,7 @@
       </div>
       <div class="modal-body">
         <center><p id="friendName"></p>
-        <img id="friendImg" src="http://via.placeholder.com/400x400"></center>
+        <img id="friendImg" src="http://via.placeholder.com/400x400" height="400" width="400"></center>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -191,9 +191,10 @@
 	var question, answer;
 
 	$("#submit").on("click", function(event) {
-		for (var i=1; i<11; i++) {
+		$("#friendName").empty();
+    for (var i=1; i<11; i++) {
 			question = document.getElementById("q" + i);
-			var answer = question.options[question.selectedIndex].value;
+			answer = Number(question.options[question.selectedIndex].value);
 			userAnswers.push(answer);
 		}
 
@@ -202,11 +203,13 @@
 			photo: $("#photoInput").val().trim(),
 			scores: userAnswers
 		}
-		
+
 		$.post("/api/friends", userData, function(data) {
 			$("#friendName").append(data.name);
 			$("#friendImg").attr("src", data.photo);
 		});
+
+
 	});
 
 

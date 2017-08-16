@@ -2,7 +2,7 @@ var friendData = require("../data/friends");
 
 module.exports = function(app) {
 	var differences = 0;
-	var leastDifferences, leastDifferencesIndex, bestFriend;
+	var leastDifferences, leastDifferencesIndex, bestFriend, newFriendData;
 	
 	app.get("/api/friends", function (req, res) {
 		res.json(friendData);
@@ -11,15 +11,12 @@ module.exports = function(app) {
 	app.post("/api/friends", function(req, res) {
 		var friendDifferences = [];
 		
-		// for (var h=0; h<friendData.length; h++) {
-		// 	if (friendData[h].name === req.body.name) {
-		// 		var newFriendData = friendData.splice(h,1);
-		// 	}
-
-		// 	console.log(friendData[h].name === req.body.name);
-		// }
-
-		// console.log(newFriendData);
+		for (var h=0; h<friendData.length; h++) {
+			if (friendData[h].name === req.body.name) {
+				friendData.splice(h, 1);
+				newFriendData = friendData;
+			}
+		}
 
 		if (newFriendData) {
 			//loops through each friend stored
